@@ -1,35 +1,52 @@
-import { Configuration, OpenAIApi } from "openai";
+// import { Configuration, OpenAIApi } from "openai";
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import OpenAI from "openai";
 
 const app = express();
 const port = 8000;
 app.use(bodyParser.json());
 app.use(cors());
 
-const configuration = new Configuration({
-  organization: "org-0nmrFWw6wSm6xIJXSbx4FpTw",
-  apiKey: "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",
+const openai = new OpenAI({
+  apiKey: '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'
 });
-const openai = new OpenAIApi(configuration);
 
 app.post("/", async (request, response) => {
   const { chats } = request.body;
+  console.log("requests:", chats);
+  const base64_image = request.body.image;
+  console.log("base64_image:", base64_image);
+  TEXTPROMPT = 'CONTEXT: You are given a photo of a scene in a household.\n\n TASK: Output a list of the objects in this photo as a list of tuples ("Item", Location within the Photo). Only output the list.\n Here is an example: [(Potato, bottom right corner), (Kleenex wipes, left foreground)]';
 
-  const result = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
+  const result = await openai.chat.completions.create({
+    model: "gpt-4-vision-preview",
+    messages:[
       {
-        role: "system",
-        content: "You are a EbereGPT. You can help with graphic design tasks",
+          "role": "system",
+          "content": "You are a helpful assistant. Make sure you always output a list of tuples that can be easily processed."
       },
-      ...chats,
-    ],
+      {
+        "role": "user",
+        "content": [
+          {"type": "text", "text": TEXTPROMPT},
+          {
+            "type": "image_url",
+            "image_url": {
+              "url": "data:image/jpeg;base64,${base64_image}"
+            },
+          },
+        ],
+      },
+      ...chats
+  ],
+  max_tokens:300,
   });
 
+  console.log(result);
   response.json({
-    output: result.data.choices[0].message,
+    output: result.choices[0].message,
   });
 });
 
