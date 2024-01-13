@@ -1,0 +1,115 @@
+/* Profiles.css */
+
+body {
+  background-color: #222222;
+  color: white;
+  margin: 0;
+}
+
+.profiles-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profiles-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.profiles-table th,
+.profiles-table td {
+  border: 1px solid #666666;
+  padding: 8px;
+  text-align: left;
+}
+
+.add-profile-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  cursor: pointer;
+  color: #222222;
+}
+
+.popup {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: black;
+  width: 30%;
+  margin-top: 15px;
+}
+
+.popup.top {
+  top: 20%;
+}
+
+.popup.bottom {
+  bottom: 20%;
+}
+
+.popup label {
+  display: block;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.popup input,
+.popup select {
+  width: calc(100% - 16px);
+  padding: 8px;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.popup button {
+  display: block;
+  width: 100%;
+  background-color: #61dafb;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.continue-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  margin-right: 10px;
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.add-profile-button,
+.save-profile-button, 
+.continue-button {
+  color: #222222 !important;
+}
