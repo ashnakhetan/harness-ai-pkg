@@ -85,7 +85,7 @@ function App() {
                 <span>
                   <b>{chat.role.toUpperCase()}</b>
                 </span>
-                <span>:</span>
+                {/* <span>:</span> */}
                 <span style={{ whiteSpace: "pre-wrap" }}>{chat.content}</span>
               </p>
             ))
@@ -98,17 +98,8 @@ function App() {
         </p>
       </div>
 
-      {/* handle message submit */}
-      {/* <form onSubmit={(e) => chat(e, message)}>
-        <input
-          // type="text"
-          name="message"
-          value={message}
-          placeholder="Type a message here and hit Enter..."
-          onChange={(e) => setMessage(e.target.value)}
-        />
-      </form> */}
-
+      
+<div className="chat-container">
       <form onSubmit={(e) => chat(e, message)}>
         <input
           type="text"
@@ -119,11 +110,11 @@ function App() {
         />
         <input type="file" accept="image/*" onChange={handleImageChange} />
         {imagePreviewUrl && (
-          <img src={imagePreviewUrl} alt="Preview" style={{ width: "100px" }} />
+          <img src={imagePreviewUrl} alt="Preview" className="image-preview" style={{ width: "300px" }} />
         )}
-        <button type="submit">Send</button>
+        {/* <button type="submit">Send</button> */}
       </form>
-
+      </div>
       {/* handle file upload */}
       {/* <input type="file" accept="image/*" onChange={handleImageChange} />
         {imagePreviewUrl && (
