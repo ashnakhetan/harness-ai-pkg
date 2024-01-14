@@ -33,6 +33,7 @@ function App() {
 
   // what to do in chat
   const chat = async (e, message) => {
+    console.log("HERE!");
     e.preventDefault();
 
     if (!message || !base64encoding) return;
@@ -40,13 +41,15 @@ function App() {
     scrollTo(0, 1e10);
 
     let msgs = chats;
-    if (base64encoding != "") {
-      console.log("base64: ", base64encoding);
-      msgs.push({ role: "user", type: "image_url", content: base64encoding });
-      setbase64encoding("");
-    } else {
-      msgs.push({ role: "user", type: "text", content: message });
-    }
+    // if (base64encoding != "") {
+    //   // For a image message
+    //   console.log("base64: ", base64encoding);
+    //   msgs.push({ role: "user", type: "image_url", content: base64encoding });
+    //   setbase64encoding("");
+    // } else {
+    // For an text message
+    msgs.push({ role: "user", type: "text", content: message });
+    // }
     setChats(msgs);
 
     setMessage("");
@@ -83,7 +86,7 @@ function App() {
                   <b>{chat.role.toUpperCase()}</b>
                 </span>
                 <span>:</span>
-                <span>{chat.content}</span>
+                <span style={{ whiteSpace: "pre-wrap" }}>{chat.content}</span>
               </p>
             ))
           : ""}
@@ -118,7 +121,7 @@ function App() {
         {imagePreviewUrl && (
           <img src={imagePreviewUrl} alt="Preview" style={{ width: "100px" }} />
         )}
-        {/* <button type="submit">Send</button> */}
+        <button type="submit">Send</button>
       </form>
 
       {/* handle file upload */}
