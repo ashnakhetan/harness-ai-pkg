@@ -1,15 +1,21 @@
 import { useState } from "react";
 import "./App.css";
 import encodeImage from "./base_64";
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Welcome from "./Welcome";
+import Profiles from "./Profiles";
+import "./index.css";
 
 function App() {
   const [message, setMessage] = useState("");
   const [chats, setChats] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [base64encoding, setbase64encoding] = useState("")
+  const [base64encoding, setbase64encoding] = useState("");
 
   const [imagePreviewUrl, setImagePreviewUrl] = useState("");
-
+  // for image useState
   const handleImageChange = (e) => {
     e.preventDefault();
 
@@ -24,8 +30,6 @@ function App() {
 
     reader.readAsDataURL(file);
   };
-  
-
 
   // what to do in chat
   const chat = async (e, message) => {
@@ -37,12 +41,10 @@ function App() {
 
     let msgs = chats;
     if (base64encoding != "") {
-      // For a image message
       console.log("base64: ", base64encoding);
       msgs.push({ role: "user", type: "image_url", content: base64encoding });
       setbase64encoding("");
     } else {
-      // For an text message
       msgs.push({ role: "user", type: "text", content: message });
     }
     setChats(msgs);
@@ -73,7 +75,6 @@ function App() {
   return (
     <main>
       <h1>HarnessAI</h1>
-
       <section>
         {chats && chats.length
           ? chats.map((chat, index) => (
@@ -94,7 +95,7 @@ function App() {
         </p>
       </div>
 
-{/* handle message submit */}
+      {/* handle message submit */}
       {/* <form onSubmit={(e) => chat(e, message)}>
         <input
           // type="text"
@@ -105,27 +106,22 @@ function App() {
         />
       </form> */}
 
-    <form onSubmit={(e) => chat(e, message)}>
-      <input
-        type="text"
-        name="message"
-        value={message}
-        placeholder="Type a message here and hit Enter..."
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleImageChange}
-      />
-      {imagePreviewUrl && (
-        <img src={imagePreviewUrl} alt="Preview" style={{ width: '100px' }} />
-      )}
-      {/* <button type="submit">Send</button> */}
-    </form>
+      <form onSubmit={(e) => chat(e, message)}>
+        <input
+          type="text"
+          name="message"
+          value={message}
+          placeholder="Type a message here and hit Enter..."
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        {imagePreviewUrl && (
+          <img src={imagePreviewUrl} alt="Preview" style={{ width: "100px" }} />
+        )}
+        {/* <button type="submit">Send</button> */}
+      </form>
 
-
-            {/* handle file upload */}
+      {/* handle file upload */}
       {/* <input type="file" accept="image/*" onChange={handleImageChange} />
         {imagePreviewUrl && (
           <img

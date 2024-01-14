@@ -1,21 +1,23 @@
 // Profiles.js
-import React, { useState, useEffect } from 'react';
-import './Profiles.css'; // Import your CSS file
+import React, { useState, useEffect } from "react";
+import "./Profiles.css"; // Import your CSS file
+import { Link } from "react-router-dom";
 
 function Profiles() {
   const [profiles, setProfiles] = useState([]);
-  const [profileType, setProfileType] = useState('');
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [allergies, setAllergies] = useState('');
-  const [petType, setPetType] = useState('');
-  const [specialConcerns, setSpecialConcerns] = useState('');
+  const [profileType, setProfileType] = useState("");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [allergies, setAllergies] = useState("");
+  const [petType, setPetType] = useState("");
+  const [specialConcerns, setSpecialConcerns] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [isSelectionMade, setIsSelectionMade] = useState(false);
 
   // Load profiles from local storage on component mount
   useEffect(() => {
-    const savedProfiles = JSON.parse(localStorage.getItem('GLOBAL_PROFILE_INFO')) || [];
+    const savedProfiles =
+      JSON.parse(localStorage.getItem("GLOBAL_PROFILE_INFO")) || [];
     setProfiles(savedProfiles);
   }, []); // Empty dependency array means this effect runs once on mount
 
@@ -53,28 +55,31 @@ function Profiles() {
     if (isSelectionMade) {
       // Save the new profile
       let newProfile;
-      if (profileType === 'person') {
-        newProfile = { type: 'person', name, age, allergies, specialConcerns };
-      } else if (profileType === 'pet') {
-        newProfile = { type: 'pet', name, petType, specialConcerns };
+      if (profileType === "person") {
+        newProfile = { type: "person", name, age, allergies, specialConcerns };
+      } else if (profileType === "pet") {
+        newProfile = { type: "pet", name, petType, specialConcerns };
       }
 
       setProfiles((prevProfiles) => {
         const updatedProfiles = [...prevProfiles, newProfile];
 
         // Save data to local storage
-        localStorage.setItem('GLOBAL_PROFILE_INFO', JSON.stringify(updatedProfiles));
+        localStorage.setItem(
+          "GLOBAL_PROFILE_INFO",
+          JSON.stringify(updatedProfiles)
+        );
 
         return updatedProfiles;
       });
 
       // Reset form fields
-      setProfileType('');
-      setName('');
-      setAge('');
-      setAllergies('');
-      setPetType('');
-      setSpecialConcerns('');
+      setProfileType("");
+      setName("");
+      setAge("");
+      setAllergies("");
+      setPetType("");
+      setSpecialConcerns("");
 
       // Close the popup
       setShowPopup(false);
@@ -85,7 +90,9 @@ function Profiles() {
     <div className="profiles-container">
       <h1 className="title">My Household</h1>
       <h2 className="subtitle">Please include everyone from your household</h2>
-      <button className="continue-button">Continue to Harness</button>
+      <Link to="/app">
+        <button className="continue-button">Continue to Harness</button>
+      </Link>
 
       <table className="profiles-table">
         <thead>
@@ -102,12 +109,12 @@ function Profiles() {
           {/* Render profiles in the table */}
           {profiles.map((profile, index) => (
             <tr key={index}>
-              <td>{profile ? profile.type || '' : ''}</td>
-              <td>{profile ? profile.name || '' : ''}</td>
-              <td>{profile ? profile.age || '' : ''}</td>
-              <td>{profile ? profile.allergies || '' : ''}</td>
-              <td>{profile ? profile.petType || '' : ''}</td>
-              <td>{profile ? profile.specialConcerns || '' : ''}</td>
+              <td>{profile ? profile.type || "" : ""}</td>
+              <td>{profile ? profile.name || "" : ""}</td>
+              <td>{profile ? profile.age || "" : ""}</td>
+              <td>{profile ? profile.allergies || "" : ""}</td>
+              <td>{profile ? profile.petType || "" : ""}</td>
+              <td>{profile ? profile.specialConcerns || "" : ""}</td>
             </tr>
           ))}
         </tbody>
@@ -133,12 +140,16 @@ function Profiles() {
 
           {isSelectionMade && (
             <div>
-              {profileType === 'person' && (
+              {profileType === "person" && (
                 <div>
                   <label>
                     Name:
                     <br />
-                    <input type="text" value={name} onChange={handleNameChange} />
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={handleNameChange}
+                    />
                   </label>
                   <br />
                   <label>
@@ -150,24 +161,36 @@ function Profiles() {
                   <label>
                     Any allergies:
                     <br />
-                    <input type="text" value={allergies} onChange={handleAllergiesChange} />
+                    <input
+                      type="text"
+                      value={allergies}
+                      onChange={handleAllergiesChange}
+                    />
                   </label>
                   <br />
                 </div>
               )}
 
-              {profileType === 'pet' && (
+              {profileType === "pet" && (
                 <div>
                   <label>
                     Name:
                     <br />
-                    <input type="text" value={name} onChange={handleNameChange} />
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={handleNameChange}
+                    />
                   </label>
                   <br />
                   <label>
                     Type of pet:
                     <br />
-                    <input type="text" value={petType} onChange={handlePetTypeChange} />
+                    <input
+                      type="text"
+                      value={petType}
+                      onChange={handlePetTypeChange}
+                    />
                   </label>
                   <br />
                 </div>
@@ -176,11 +199,19 @@ function Profiles() {
               <label>
                 Special Concerns:
                 <br />
-                <input type="text" value={specialConcerns} onChange={handleSpecialConcernsChange} />
+                <input
+                  type="text"
+                  value={specialConcerns}
+                  onChange={handleSpecialConcernsChange}
+                />
               </label>
               <br />
 
-              <button className="save-profile-button" onClick={handleSaveProfile} disabled={!isSelectionMade}>
+              <button
+                className="save-profile-button"
+                onClick={handleSaveProfile}
+                disabled={!isSelectionMade}
+              >
                 Save Profile
               </button>
             </div>
